@@ -1,10 +1,10 @@
-import { Suspense } from 'react'
-import { RouterProvider } from 'react-router-dom'
-import { Loader2 } from 'lucide-react'
+import { Suspense } from "react";
+import { RouterProvider } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 
-import router from './routes'
+import router from "./routes";
 
-import './App.css'
+import "./App.css";
 
 function App() {
   return (
@@ -12,12 +12,12 @@ function App() {
       fallback={
         <div className="flex flex-col items-center justify-center h-full">
           <Loader2 className="w-16 h-16 animate-spin" />
-      </div>
+        </div>
       }
     >
       <RouterProvider router={router} />
     </Suspense>
-  )
+  );
 }
 
-export default App
+export default App;

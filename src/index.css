@@ -4,7 +4,6 @@
 @custom-variant hover (&:hover);
 
 @theme inline {
-
   --radius-sm: calc(var(--radius) - 4px);
 
   --radius-md: calc(var(--radius) - 2px);
@@ -77,12 +76,11 @@
 }
 
 :root {
-
   --radius: 0.625rem;
 
-  --background: #1E1F24;
+  --background: #1e1f24;
 
-  --foreground: #FFFFFF;
+  --foreground: #ffffff;
 
   --card: oklch(1 0 0);
 
@@ -92,9 +90,9 @@
 
   --popover-foreground: oklch(0.145 0 0);
 
-  --primary: #1ED660;
+  --primary: #1ed660;
 
-  --primary-foreground: #1E1E1E;
+  --primary-foreground: #1e1e1e;
 
   --secondary: oklch(0.97 0 0);
 
@@ -110,7 +108,7 @@
 
   --destructive: oklch(0.577 0.245 27.325);
 
-  --border: #27282D;
+  --border: #27282d;
 
   --input: oklch(0.922 0 0);
 
@@ -144,7 +142,6 @@
 }
 
 .dark {
-
   --background: oklch(0.145 0 0);
 
   --foreground: oklch(0.985 0 0);
