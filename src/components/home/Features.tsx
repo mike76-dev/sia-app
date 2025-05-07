@@ -1,13 +1,16 @@
-import ArrowIcon from "../icons/arrow";
-import CurrencyIcon from "../icons/currency";
-import DataIcon from "../icons/data";
-import Flexible from "../icons/flexible";
-import MaintenanceIcon from "../icons/maintenance";
-import PreserveIcon from "../icons/preserve";
-import PrivacyIcon from "../icons/privacy";
-import SecurityIcon from "../icons/security";
-import { Button } from "../ui/button";
-import { Card, CardContent } from "../ui/card";
+// Components
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
+// Assets
+import ArrowIcon from "@/components/icons/arrow";
+import CurrencyIcon from "@/components/icons/currency";
+import DataIcon from "@/components/icons/data";
+import Flexible from "@/components/icons/flexible";
+import MaintenanceIcon from "@/components/icons/maintenance";
+import PreserveIcon from "@/components/icons/preserve";
+import PrivacyIcon from "@/components/icons/privacy";
+import SecurityIcon from "@/components/icons/security";
 import world from "@/assets/world.png";
 import particle from "@/assets/particle.png";
 

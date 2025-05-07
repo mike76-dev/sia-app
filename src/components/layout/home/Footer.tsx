@@ -1,7 +1,7 @@
+// Assets
 import GithubIcon from "@/components/icons/github";
 import TwitterIcon from "@/components/icons/twitter";
 import DiscordIcon from "@/components/icons/discord";
-
 import builtWithSia from "@/assets/built-with-sia.png";
 
 export default function Footer() {

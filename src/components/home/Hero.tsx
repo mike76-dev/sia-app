@@ -1,10 +1,13 @@
-import BrainIcon from "../icons/brain";
-import DataTableIcon from "../icons/data-table";
-import FileIcon from "../icons/file";
-import InnovationIcon from "../icons/innovation";
-import StorageIcon from "../icons/storage";
+// Components
+import { Button } from "@/components/ui/button";
+
+// Assets
+import BrainIcon from "@/components/icons/brain";
+import DataTableIcon from "@/components/icons/data-table";
+import FileIcon from "@/components/icons/file";
+import InnovationIcon from "@/components/icons/innovation";
+import StorageIcon from "@/components/icons/storage";
 import dashboardsample from "@/assets/dashboard-sample.png";
-import { Button } from "../ui/button";
 
 export default function Hero() {
   return (
