@@ -39,9 +39,9 @@ export default function Register() {
         });
     },
     onError: (error) => console.error("Google register error:", error),
-    flow: 'implicit',
+    flow: "implicit",
   });
-  
+
   return (
     <div className="flex flex-col items-center justify-center h-full relative">
       {mode !== null && (

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ArrowLeftIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useGoogleLogin, type TokenResponse } from '@react-oauth/google';
+import { useGoogleLogin, type TokenResponse } from "@react-oauth/google";
 
 // Components
 import { Button } from "@/components/ui/button";
@@ -37,7 +37,7 @@ export default function Login() {
         });
     },
     onError: (error) => console.error("Google login error:", error),
-    flow: 'implicit',
+    flow: "implicit",
   });
 
   return (
