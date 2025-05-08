@@ -36,7 +36,7 @@ export const signupUser = createAsyncThunk(
         body: JSON.stringify({ email }),
       });
 
-      if (res.status === 204) {
+      if (res.status === 204 || res.status === 200) {
         return { success: true };
       }
       const resData = await res.json();
@@ -62,7 +62,7 @@ export const resendOTP = createAsyncThunk(
         },
         body: JSON.stringify({ email }),
       });
-      if (res.status === 204) {
+      if (res.status === 204 || res.status === 200) {
         return { success: true };
       }
       const resData = await res.json();
@@ -89,7 +89,7 @@ export const verifyOtp = createAsyncThunk(
         body: JSON.stringify({ code, email }),
       });
 
-      if (res.status === 204) {
+      if (res.status === 204 || res.status === 200) {
         return { success: true };
       }
       const resData = await res.json();
@@ -120,7 +120,7 @@ export const loginUser = createAsyncThunk(
         },
         body: JSON.stringify({ email }),
       });
-      if (res.status === 204) {
+      if (res.status === 204 || res.status === 200) {
         return { success: true };
       }
       const resData = await res.json();
@@ -146,7 +146,7 @@ export const forgotPassword = createAsyncThunk(
         },
         body: JSON.stringify({ email }),
       });
-      if (res.status === 204) {
+      if (res.status === 204 || res.status === 200) {
         return { success: true };
       }
       const resData = await res.json();
@@ -172,7 +172,7 @@ export const resendResetLink = createAsyncThunk(
         },
         body: JSON.stringify({ email }),
       });
-      if (res.status === 204) {
+      if (res.status === 204 || res.status === 200) {
         return { success: true };
       }
       const resData = await res.json();
@@ -198,7 +198,7 @@ export const verifyResetToken = createAsyncThunk(
         },
         credentials: "include",
       });
-      if (res.status === 204) {
+      if (res.status === 204 || res.status === 200) {
         return { success: true };
       }
       const resData = await res.json();
@@ -225,7 +225,7 @@ export const changePassword = createAsyncThunk(
         },
         credentials: "include",
       });
-      if (res.status === 204) {
+      if (res.status === 204 || res.status === 200) {
         return { success: true };
       }
       const resData = await res.json();
@@ -257,7 +257,7 @@ export const googleRegister = createAsyncThunk(
         credentials: "include",
       });
 
-      if (res.status === 204) {
+      if (res.status === 204 || res.status === 200) {
         return { success: true };
       }
 
@@ -289,7 +289,7 @@ export const googleLogin = createAsyncThunk(
         credentials: "include",
       });
 
-      if (res.status === 204) {
+      if (res.status === 204 || res.status === 200) {
         return { success: true };
       }
 
