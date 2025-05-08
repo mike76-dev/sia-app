@@ -188,15 +188,15 @@ export const resendResetLink = createAsyncThunk(
 );
 
 export const verifyResetToken = createAsyncThunk(
-  'auth/verifyResetToken',
+  "auth/verifyResetToken",
   async ({ token }: { token: string }, thunkAPI) => {
     try {
       const res = await fetch(`${BASE_URL}/auth`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'X-Satellite-Token': token,
+          "X-Satellite-Token": token,
         },
-        credentials: 'include',
+        credentials: "include",
       });
       if (res.status === 204) {
         return { success: true };
@@ -214,16 +214,16 @@ export const verifyResetToken = createAsyncThunk(
 );
 
 export const changePassword = createAsyncThunk(
-  'auth/changePassword',
+  "auth/changePassword",
   async ({ password }: { password: string }, thunkAPI) => {
     try {
       const res = await fetch(`${BASE_URL}/auth/change`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'X-Satellite-Password': password,
-          'Content-Type': 'application/json',
+          "X-Satellite-Password": password,
+          "Content-Type": "application/json",
         },
-        credentials: 'include',
+        credentials: "include",
       });
       if (res.status === 204) {
         return { success: true };
@@ -242,22 +242,19 @@ export const changePassword = createAsyncThunk(
 );
 
 export const googleRegister = createAsyncThunk(
-  'auth/googleRegister',
+  "auth/googleRegister",
   async (
-    {
-      clientId,
-      credential,
-    }: { clientId: string; credential: string },
+    { clientId, credential }: { clientId: string; credential: string },
     thunkAPI,
   ) => {
     try {
       const res = await fetch(`${BASE_URL}/auth/login/google?action=signup`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ clientId, credential }),
-        credentials: 'include',
+        credentials: "include",
       });
 
       if (res.status === 204) {
@@ -277,22 +274,19 @@ export const googleRegister = createAsyncThunk(
 );
 
 export const googleLogin = createAsyncThunk(
-  'auth/googleLogin',
+  "auth/googleLogin",
   async (
-    {
-      clientId,
-      credential,
-    }: { clientId: string; credential: string },
+    { clientId, credential }: { clientId: string; credential: string },
     thunkAPI,
   ) => {
     try {
       const res = await fetch(`${BASE_URL}/auth/login/google?action=login`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ clientId, credential }),
-        credentials: 'include',
+        credentials: "include",
       });
 
       if (res.status === 204) {
