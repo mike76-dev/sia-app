@@ -2,8 +2,13 @@ import { Suspense } from "react";
 import { RouterProvider } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 
+// Components
+import { Toaster } from "@/components/ui/sonner";
+
+// Routes
 import router from "./routes";
 
+// Styles
 import "./App.css";
 
 function App() {
@@ -16,6 +21,7 @@ function App() {
       }
     >
       <RouterProvider router={router} />
+      <Toaster />
     </Suspense>
   );
 }
