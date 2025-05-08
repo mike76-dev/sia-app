@@ -14,9 +14,9 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://api.ss-bravo.online/v1",
+        target: "https://api.ss-bravo.online",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
+        rewrite: (path) => path.replace(/^\/api/, "/v1"),
       },
     },
   },
