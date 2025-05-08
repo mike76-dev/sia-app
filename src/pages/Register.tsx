@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { ArrowLeftIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useGoogleLogin, type TokenResponse } from "@react-oauth/google";
 
 // Components
 import { Button } from "@/components/ui/button";
@@ -10,8 +12,36 @@ import sialogo from "@/assets/sia-logo.png";
 import GoogleIcon from "@/components/icons/google";
 import EmailIcon from "@/components/icons/email";
 
+// Hooks
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+
+// Store
+import { googleRegister } from "@/store/actions/authAction";
+
 export default function Register() {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [mode, setMode] = useState<"email" | null>(null);
+
+  const handleGoogleRegister = useGoogleLogin({
+    onSuccess: async (tokenResponse: TokenResponse) => {
+      const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+      const credential = tokenResponse.access_token;
+      console.log(tokenResponse);
+      console.log(clientId);
+      dispatch(googleRegister({ clientId, credential }))
+        .unwrap()
+        .then(() => {
+          navigate("/dashboard");
+        })
+        .catch((err) => {
+          console.error("Google register failed:", err);
+        });
+    },
+    onError: (error) => console.error("Google register error:", error),
+    flow: 'implicit',
+  });
+  
   return (
     <div className="flex flex-col items-center justify-center h-full relative">
       {mode !== null && (
@@ -50,6 +80,7 @@ export default function Register() {
               <Button
                 variant={"secondary"}
                 className="w-full h-14 bg-background text-foreground text-[20px] font-medium hover:bg-background/90"
+                onClick={() => handleGoogleRegister()}
               >
                 <GoogleIcon className="w-6 h-6" />
                 <p>Continue with Google</p>

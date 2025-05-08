@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-
+import { useNavigate } from "react-router-dom";
 // Components
 import {
   Form,
@@ -18,16 +18,20 @@ import sialogo from "@/assets/sia-logo.png";
 
 // Hooks
 import { useAppDispatch } from "@/hooks/useAppDispatch";
-
+import { useAppSelector } from "@/hooks/useAppSelector";
 // Store
 import { loginUser } from "@/store/actions/authAction";
 
 // Schemas
 import { loginSchema } from "@/lib/schemas/AuthSchema";
 
+// Toast
+import { toast } from "sonner";
+
 export default function LoginForm() {
   const dispatch = useAppDispatch();
-
+  const navigate = useNavigate();
+  const { loading } = useAppSelector((state) => state.auth);
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -38,7 +42,18 @@ export default function LoginForm() {
 
   const onSubmit = (data: z.infer<typeof loginSchema>) => {
     console.log(data);
-    dispatch(loginUser(data));
+    dispatch(loginUser(data))
+      .unwrap()
+      .then((res) => {
+        if (res.success) {
+          toast.success("Login successful");
+          navigate("/dashboard");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err);
+      });
   };
 
   return (
@@ -81,7 +96,9 @@ export default function LoginForm() {
               name="password"
               render={({ field }) => (
                 <FormItem className="flex flex-col gap-2 w-full">
-                  <FormLabel className="text-2xl font-medium">Password</FormLabel>
+                  <FormLabel className="text-2xl font-medium">
+                    Password
+                  </FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -97,11 +114,15 @@ export default function LoginForm() {
               href="/forgot-password"
               className="text-primary hover:text-primary/80 w-full text-left"
             >
-            <p>Forgot password?</p>
-          </a>
-        <Button className="w-full h-14 text-base font-semibold">Log in</Button>
-
-        </form>
+              <p>Forgot password?</p>
+            </a>
+            <Button
+              className="w-full h-14 text-base font-semibold"
+              disabled={loading}
+            >
+              {loading ? "Logging in..." : "Log in"}
+            </Button>
+          </form>
         </Form>
         <div className="h-[2px] bg-primary rounded-full w-full"></div>
         <div className="flex flex-row items-center gap-2 text-xl font-medium justify-center">

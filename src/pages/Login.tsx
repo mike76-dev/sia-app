@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { ArrowLeftIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useGoogleLogin, type TokenResponse } from '@react-oauth/google';
 
 // Components
 import { Button } from "@/components/ui/button";
@@ -10,8 +12,34 @@ import sialogo from "@/assets/sia-logo.png";
 import EmailIcon from "@/components/icons/email";
 import GoogleIcon from "@/components/icons/google";
 
+// Hooks
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+
+// Store
+import { googleLogin } from "@/store/actions/authAction";
+
 export default function Login() {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [mode, setMode] = useState<"email" | null>(null);
+
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse: TokenResponse) => {
+      const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+      const credential = tokenResponse.access_token;
+      dispatch(googleLogin({ clientId, credential }))
+        .unwrap()
+        .then(() => {
+          navigate("/dashboard");
+        })
+        .catch((err) => {
+          console.error("Google login failed:", err);
+        });
+    },
+    onError: (error) => console.error("Google login error:", error),
+    flow: 'implicit',
+  });
+
   return (
     <div className="flex flex-col items-center justify-center h-full relative">
       {mode !== null && (
@@ -49,6 +77,7 @@ export default function Login() {
               <Button
                 variant={"secondary"}
                 className="w-full h-14 bg-background text-foreground text-[20px] font-medium hover:bg-background/90"
+                onClick={() => handleGoogleLogin()}
               >
                 <GoogleIcon className="w-6 h-6" />
                 <p>Continue with Google</p>
