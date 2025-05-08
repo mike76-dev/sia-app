@@ -1,9 +1,46 @@
-import sialogo from "@/assets/sia-logo.png";
-import { Button } from "../ui/button";
-import { Label } from "@/components/ui/label";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+// Components
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+// Hooks
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+
+// Store
+import { signupUser } from "@/store/actions/authAction";
+
+// Assets
+import sialogo from "@/assets/sia-logo.png";
+
+// Schemas
+import { signupSchema } from "@/lib/schemas/AuthSchema";
+
 export default function RegisterForm() {
+  const dispatch = useAppDispatch();
+  const form = useForm<z.infer<typeof signupSchema>>({
+    resolver: zodResolver(signupSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
+
+  const onSubmit = (data: z.infer<typeof signupSchema>) => {
+    console.log(data);
+    dispatch(signupUser(data));
+  };
+
   return (
     <>
       <div className="flex flex-col items-center gap-2 relative w-full">
@@ -17,35 +54,71 @@ export default function RegisterForm() {
       </div>
       <div className="flex flex-col items-center gap-6 mt-20 w-full max-w-[464px] relative">
         <h3 className="text-3xl font-semibold">Create an account</h3>
-        <div className="flex flex-col items-center gap-3 w-full mt-6">
-          <div className="flex flex-col gap-2 w-full">
-            <Label className="text-2xl font-medium">Email</Label>
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              className="bg-[#1E2024] h-14 text-foreground border-none"
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col items-center gap-3 w-full mt-6"
+          >
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem className="flex flex-col gap-2 w-full">
+                  <FormLabel className="text-2xl font-medium">Email</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      type="email"
+                      placeholder="Enter your email"
+                      className="bg-[#1E2024] h-14 text-foreground border-none"
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
             />
-          </div>
-          <div className="flex flex-col gap-2 w-full">
-            <Label className="text-2xl font-medium">Password</Label>
-            <Input
-              type="password"
-              placeholder="Enter your password"
-              className="bg-[#1E2024] h-14 text-foreground border-none"
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem className="flex flex-col gap-2 w-full">
+                  <FormLabel className="text-2xl font-medium">
+                    Password
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      type="password"
+                      placeholder="Enter your password"
+                      className="bg-[#1E2024] h-14 text-foreground border-none"
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
             />
-          </div>
-          <div className="flex flex-col gap-2 w-full">
-            <Label className="text-2xl font-medium">Retype Password</Label>
-            <Input
-              type="password"
-              placeholder="Confirm your password"
-              className="bg-[#1E2024] h-14 text-foreground border-none"
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem className="flex flex-col gap-2 w-full">
+                  <FormLabel className="text-2xl font-medium">
+                    Retype Password
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      type="password"
+                      placeholder="Confirm your password"
+                      className="bg-[#1E2024] h-14 text-foreground border-none"
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
             />
-          </div>
-        </div>
-        <Button className="w-full h-14 text-base font-semibold">
-          Create account
-        </Button>
+          <Button className="w-full h-14 text-base font-semibold" type="submit">
+            Create account
+          </Button>
+          </form>
+        </Form>
         <p className="text-base font-medium">
           By clicking the “Sign up” button, you are creating a Sia Satelite
           account and therefore you agree to Sia Satelite{" "}
