@@ -4,12 +4,11 @@ import { signupSchema, loginSchema } from "@/lib/schemas/AuthSchema";
 import { mapErrorCode } from "@/lib/mapErrorCode";
 
 const API_URL = import.meta.env.VITE_API_URL;
-const API_VERSION = import.meta.env.VITE_API_VERSION;
 
 const BASE_URL =
   import.meta.env.VITE_ENVIRONMENT === "development"
     ? `/api`
-    : `${API_URL}/${API_VERSION}`;
+    : `${API_URL}`;
 
 export const signupUser = createAsyncThunk(
   "auth/signupUser",
