@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 // Components
 import { Button } from "@/components/ui/button";
 
@@ -10,6 +12,7 @@ import StorageIcon from "@/components/icons/storage";
 import dashboardsample from "@/assets/dashboard-sample.png";
 
 export default function Hero() {
+  const navigate = useNavigate();
   return (
     <div className="relative flex flex-col items-center justify-center w-full gap-3 h-screen">
       <h1 className="font-bold text-7xl">
@@ -42,7 +45,12 @@ export default function Hero() {
         >
           Learn More
         </Button>
-        <Button className="h-14 px-8 font-semibold text-xl">Launch App</Button>
+        <Button
+          className="h-14 px-8 font-semibold text-xl"
+          onClick={() => navigate("/auth/login")}
+        >
+          Launch App
+        </Button>
       </div>
       <div className="absolute -bottom-1/2 left-1/2 -translate-x-1/2 w-full">
         <img src={dashboardsample} alt="sia-dashboard" />

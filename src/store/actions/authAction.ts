@@ -6,9 +6,7 @@ import { mapErrorCode } from "@/lib/mapErrorCode";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const BASE_URL =
-  import.meta.env.VITE_ENVIRONMENT === "development"
-    ? `/api`
-    : `${API_URL}`;
+  import.meta.env.VITE_ENVIRONMENT === "development" ? `/api` : `${API_URL}`;
 
 export const signupUser = createAsyncThunk(
   "auth/signupUser",

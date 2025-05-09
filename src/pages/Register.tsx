@@ -123,6 +123,9 @@ export default function Register() {
               <p>Login</p>
             </a>
           </div>
+          <a href="/" className="text-primary/50 hover:text-primary/80 mt-2">
+            Back to Home
+          </a>
         </>
       ) : (
         <RegisterForm />
