@@ -45,7 +45,7 @@ export default function Login() {
             })
             .catch((err) => {
               console.error("Google login failed:", err);
-              // toast.error(err);
+              toast.error(err);
             });
         },
       });
