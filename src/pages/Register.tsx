@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { ArrowLeftIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -42,6 +43,28 @@ export default function Register() {
     flow: "implicit",
   });
 
+  const handleGoogleButtonClick = () => {
+    if (window.google) {
+      window.google.accounts.id.initialize({
+        client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+        callback: (response: any) => {
+          const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+          const credential = response.credential;
+          dispatch(googleRegister({ clientId, credential }))
+            .unwrap()
+            .then(() => {
+              navigate("/dashboard");
+            })
+            .catch((err) => {
+              console.error("Google register failed:", err);
+            });
+        },
+      });
+
+      window.google.accounts.id.prompt(); // Directly triggers the popup
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center h-full relative">
       {mode !== null && (
@@ -83,8 +106,18 @@ export default function Register() {
                 onClick={() => handleGoogleRegister()}
               >
                 <GoogleIcon className="w-6 h-6" />
-                <p>Continue with Google</p>
+                <p>Continue with Google (OAuth)</p>
               </Button>
+
+              <Button
+                variant={"secondary"}
+                className="w-full h-14 bg-background text-foreground text-[20px] font-medium hover:bg-background/90"
+                onClick={handleGoogleButtonClick}
+              >
+                <GoogleIcon className="w-6 h-6" />
+                <p>Continue with Google (Identity Script)</p>
+              </Button>
+
               <Button
                 variant={"secondary"}
                 className="w-full h-14 bg-background text-foreground text-[20px] font-medium hover:bg-background/90"

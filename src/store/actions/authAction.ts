@@ -261,6 +261,7 @@ export const googleRegister = createAsyncThunk(
       }
 
       const resData = await res.json();
+      console.log(resData);
       if (!res.ok) {
         const errorMessage = mapErrorCode(resData.code);
         return thunkAPI.rejectWithValue(errorMessage);
