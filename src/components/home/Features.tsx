@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 // Components
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,6 +17,7 @@ import world from "@/assets/world.png";
 import particle from "@/assets/particle.png";
 
 export default function Features() {
+  const navigate = useNavigate();
   return (
     <div className="relative flex flex-col items-center justify-center w-full mt-96 overflow-hidden pb-52">
       <div>
@@ -88,7 +91,10 @@ export default function Features() {
             >
               Read the Docs
             </Button>
-            <Button className="h-14 px-8 font-semibold text-xl">
+            <Button
+              className="h-14 px-8 font-semibold text-xl"
+              onClick={() => navigate("/auth/login")}
+            >
               Launch App
             </Button>
           </div>
@@ -156,7 +162,10 @@ export default function Features() {
           </h2>
           <p className="text-4xl">Start renting decentralized storage.</p>
           <div className="flex flex-row items-center justify-center gap-6 mt-5">
-            <Button className="h-14 px-8 font-semibold text-xl">
+            <Button
+              className="h-14 px-8 font-semibold text-xl"
+              onClick={() => navigate("/auth/login")}
+            >
               Launch App
             </Button>
             <Button

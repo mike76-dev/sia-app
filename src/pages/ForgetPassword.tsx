@@ -12,7 +12,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import forgetBackground from "@/assets/forget.png";
 import { toast } from "sonner";
-
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { resetPasswordSchema } from "@/lib/schemas/AuthSchema";
+import { Form, FormField } from "@/components/ui/form";
 export default function ForgetPassword() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -20,8 +24,15 @@ export default function ForgetPassword() {
   const [email, setEmail] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
   const [token, setToken] = useState<string | null>(null);
-  const [newPassword, setNewPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const form = useForm<z.infer<typeof resetPasswordSchema>>({
+    resolver: zodResolver(resetPasswordSchema),
+    defaultValues: {
+      password: "",
+      confirmPassword: "",
+    },
+  });
   useEffect(() => {
     console.log("firing verify reset token");
     const params = new URLSearchParams(location.search);
@@ -72,7 +83,7 @@ export default function ForgetPassword() {
   const handlePasswordReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    dispatch(changePassword({ password: newPassword }))
+    dispatch(changePassword({ password: form.getValues("password") }))
       .unwrap()
       .then(() => {
         toast.success("Password changed successfully. Please log in.");
@@ -114,27 +125,44 @@ export default function ForgetPassword() {
               <h2 className="text-3xl font-bold text-primary">
                 Set New Password
               </h2>
-              <form
-                onSubmit={handlePasswordReset}
-                className="w-full mt-12 flex flex-col items-center"
-              >
-                <Input
-                  type="password"
-                  placeholder="New Password"
-                  className="bg-[#1E2024] h-14 text-foreground border-none"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-                  title="Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character."
-                />
-                <Button
-                  type="submit"
-                  className="w-full h-14 text-base font-semibold mt-8"
-                  disabled={isLoading}
+              <Form {...form}>
+                <form
+                  onSubmit={handlePasswordReset}
+                  className="w-full mt-12 flex flex-col items-center gap-4"
                 >
-                  Change Password
-                </Button>
-              </form>
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <Input
+                        type="password"
+                        placeholder="New Password"
+                        className="bg-[#1E2024] h-14 text-foreground border-none"
+                        {...field}
+                      />
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="confirmPassword"
+                    render={({ field }) => (
+                      <Input
+                        type="password"
+                        placeholder="Confirm New Password"
+                        className="bg-[#1E2024] h-14 text-foreground border-none"
+                        {...field}
+                      />
+                    )}
+                  />
+                  <Button
+                    type="submit"
+                    className="w-full h-14 text-base font-semibold mt-8"
+                    disabled={isLoading}
+                  >
+                    Change Password
+                  </Button>
+                </form>
+              </Form>
             </div>
           ) : !success ? (
             <div className="flex flex-col items-center justify-center">
