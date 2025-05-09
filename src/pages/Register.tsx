@@ -45,7 +45,7 @@ export default function Register() {
             })
             .catch((err) => {
               console.error("Google register failed:", err);
-              // toast.error(err);
+              toast.error(err);
             });
         },
       });
@@ -95,7 +95,7 @@ export default function Register() {
                 onClick={handleGoogleButtonClick}
               >
                 <GoogleIcon className="w-6 h-6" />
-                <p>Continue with Google (Identity Script)</p>
+                <p>Continue with Google</p>
               </Button>
 
               <Button
