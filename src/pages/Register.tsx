@@ -45,7 +45,7 @@ export default function Register() {
             })
             .catch((err) => {
               console.error("Google register failed:", err);
-              // toast.error(err);
+              toast.error(err);
             });
         },
       });
