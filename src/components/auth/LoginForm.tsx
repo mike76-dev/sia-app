@@ -41,7 +41,6 @@ export default function LoginForm() {
   });
 
   const onSubmit = (data: z.infer<typeof loginSchema>) => {
-    console.log(data);
     dispatch(loginUser(data))
       .unwrap()
       .then((res) => {

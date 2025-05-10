@@ -61,7 +61,6 @@ export default function RegisterForm() {
   });
 
   const onSubmit = (data: z.infer<typeof signupSchema>) => {
-    console.log("Signup form submitted:", data);
     dispatch(signupUser(data))
       .unwrap()
       .then(() => {
@@ -72,8 +71,6 @@ export default function RegisterForm() {
   };
 
   const onOtpSubmit = (data: z.infer<typeof otpSchema>) => {
-    console.log("OTP form submitted:", data);
-    console.log("Current email:", form.watch("email"));
     dispatch(verifyOtp({ code: data.otp, email: form.watch("email") }))
       .unwrap()
       .then(() => {
@@ -84,15 +81,12 @@ export default function RegisterForm() {
   };
 
   const handleOtpChange = (value: string) => {
-    console.log("OTP value changed:", value);
     otpForm.setValue("otp", value, { shouldValidate: true });
   };
 
   const handleOtpSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted manually");
     const otpValue = otpForm.getValues("otp");
-    console.log("Current OTP value:", otpValue);
     onOtpSubmit({ otp: otpValue, email: form.watch("email") });
   };
 
