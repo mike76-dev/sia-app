@@ -36,7 +36,6 @@ export default function Login() {
           dispatch(googleLogin({ clientId, credential }))
             .unwrap()
             .then((res) => {
-              console.log(res);
               if (res.success) {
                 navigate("/dashboard");
               } else {

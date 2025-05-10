@@ -34,7 +34,6 @@ export default function ForgetPassword() {
     },
   });
   useEffect(() => {
-    console.log("firing verify reset token");
     const params = new URLSearchParams(location.search);
     const urlToken = params.get("token");
     if (urlToken) {
@@ -65,6 +64,8 @@ export default function ForgetPassword() {
           toast.success("Reset link sent to your email");
           setIsLoading(false);
         }
+        setIsLoading(false);
+        toast.error(res.message);
       });
   };
 
@@ -77,6 +78,8 @@ export default function ForgetPassword() {
           toast.success("Reset link resent to your email");
           setIsLoading(false);
         }
+        setIsLoading(false);
+        toast.error(res.message);
       });
   };
 
@@ -85,9 +88,12 @@ export default function ForgetPassword() {
     setIsLoading(true);
     dispatch(changePassword({ password: form.getValues("password") }))
       .unwrap()
-      .then(() => {
-        toast.success("Password changed successfully. Please log in.");
-        navigate("/auth/login");
+      .then((res) => {
+        if (res.success) {
+          toast.success("Password changed successfully. Please log in.");
+          navigate("/auth/login");
+        }
+        toast.error(res.message);
       })
       .catch(() => toast.error("Failed to change password."))
       .finally(() => setIsLoading(false));
