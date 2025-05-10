@@ -1,5 +1,4 @@
 export function mapErrorCode(code: number): string {
-  console.log(code, "code");
   switch (code) {
     case 2:
       return "Request body is empty.";
